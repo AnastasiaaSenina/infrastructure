@@ -2,7 +2,7 @@
 #include "multmas.h"
 
 TEST(MultElementofMas, return_0_IfMassivIsEmpty) {
-  int* res = MultElementofMas(0,0);
+  int* res = MultElementofMas(0, 0);
 
   EXPECT_EQ(0, res);
   }
