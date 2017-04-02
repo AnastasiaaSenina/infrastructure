@@ -9,21 +9,21 @@ char* minway(int x1, int y1) {
   int step = 1;
   int s = 0;
   if (x1 == 0 && y1 == 0) {
-   return nullptr;
+    return nullptr;
   }
   while (x0 + step < x && y0 + step + 1 < y) {
-    y0=y0+step;
+    y0 = y0+step;
     step++;
     resmas[s] = 'N';
     s++;
-    x0=x0+step;
+    x0 = x0+step;
     step++;
     resmas[s] = 'E';
     s++;
   }
   step--;
     int a = x-x0;
-    for (int i = 0; i < a; i++ ) {
+    for ( int i = 0; i < a; i++ ) {
       x0 -= step;
       step++;
       resmas[s] = 'W';
@@ -52,9 +52,9 @@ char* minway(int x1, int y1) {
       } else {
         if (resmas[i] == 'W') {
          resmas[i] = 'E';
+        }
       }
     }
-   }
   }
   if (y1 < 0) {
     for (int i = 0; i < s; i++) {
