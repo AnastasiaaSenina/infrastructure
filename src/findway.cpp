@@ -3,7 +3,7 @@
 char* minway(int x1, int y1) {
   int x = fabs(x1);
   int y = fabs(y1);
-  char* resmas = new char [10000];
+  char* resmas = new char[10000];
   int x0 = 0;
   int y0 = 0;
   int step = 1;
