@@ -1,9 +1,9 @@
 #include "findway.h"
-#include "math.h"
+
 char* minway(int x1, int y1) {
-  int x = abs(x1);
-  int y = abs(y1);
-  char resmas[10000];
+  int x = fabs(x1);
+  int y = fabs(y1);
+  char* resmas = new char [10000];
   int x0 = 0;
   int y0 = 0;
   int step = 1;
