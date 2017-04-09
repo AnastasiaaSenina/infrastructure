@@ -8,7 +8,8 @@ using std:: vector;
 using std:: set;
 using std:: make_pair;
 
-vector < int > FindShortestWay(int start, int n, vector < vector < std::pair < int, int > > > g);
+vector < int > FindShortestWay(int start, int n,
+  vector < vector < std::pair < int, int > > > g);
 
 
 #endif  // INCLUDE_WAY_H_

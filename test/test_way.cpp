@@ -13,7 +13,7 @@ TEST(FindShortestWay, CanCorrectFindMinD) {
 
   node1[0] = make_pair(3, 0);
   node1[1] = make_pair(1, 2);
-  node1[2] = make_pair(1,3);
+  node1[2] = make_pair(1, 3);
   tree.push_back(node1);
 
   node2[0] = make_pair(1, 0);
@@ -31,7 +31,6 @@ TEST(FindShortestWay, CanCorrectFindMinD) {
 
   for ( int i = 0; i < 4; ++i)
     EXPECT_EQ(rightvar[i], result[i]);
-
 }
 
 TEST(FindShortestWay, CanCorrectFindMinD1) {
@@ -61,5 +60,4 @@ TEST(FindShortestWay, CanCorrectFindMinD1) {
 
   for (int i = 0; i < 4; ++i)
     EXPECT_EQ(rightvar[i], result[i]);
-
 }

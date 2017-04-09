@@ -1,6 +1,7 @@
 #include "way.h"
 
-vector< int > FindShortestWay(int start, int n, vector < vector < pair < int, int > > > g) {
+vector< int > FindShortestWay(int start, int n,
+  vector < vector < pair < int, int > > > g) {
   vector < int > d(n, 1000000);
   d[start] = 0;
   set < pair < int, int> > q;
@@ -19,7 +20,7 @@ vector< int > FindShortestWay(int start, int n, vector < vector < pair < int, in
       }
     }
   }
-   return d;
+  return d;
 }
 
 
