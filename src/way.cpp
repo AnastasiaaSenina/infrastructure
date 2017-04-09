@@ -10,7 +10,7 @@ vector< int > FindShortestWay(int start, int n,
   while (!q.empty()) {
     int current_node = q.begin()->second;
     q.erase(q.begin());
-    for (int j = 0; j < g[current_node].size(); ++j) {
+    for (unsigned int j = 0; j < g[current_node].size(); ++j) {
       int node = g[current_node][j].second;
       len = g[current_node][j].first;
       if (d[current_node] + len < d[node]) {
