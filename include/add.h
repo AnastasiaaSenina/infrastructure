@@ -9,6 +9,5 @@ int Find(int* mas, int pos);
 void Union(int x, int y, int* mas, int * count);
 bool Percolation(int** m, int n);
 double MatVer(int** m, int n);
- 
 
 #endif  // INCLUDE_ADD_H_

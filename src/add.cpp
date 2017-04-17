@@ -31,8 +31,8 @@ bool Percolation(int** m, int n) {
   for (int i = 0; i < n*n; ++i) {
     mas[i] = i;
   }
-  for (int i= 0;i<n -1;++i)
-    Union(i,i+1, mas, count);
+  for (int i = 0; i < n -1; ++i)
+    Union(i, i+1, mas, count);
   for ( int i = n*n - n; i < n*n -1; i++ )
     Union(i, i + 1, mas, count);
 
@@ -40,7 +40,7 @@ bool Percolation(int** m, int n) {
     if (m[(i - i%n) / n][i%n] == 1) {
       if (i - 1 >= 0 && i - 1 < n*n) {
         if (m[(i-1-(i - 1)%n)/n][(i-1)%n] == 1)
-          Union(i-1, i,mas, count);
+          Union(i-1, i, mas, count);
       }
       if (i + 1 >= 0 && i + 1 < n*n) {
         if (m[(i + 1 - (i + 1) % n) / n][(i + 1) % n] == 1)
@@ -60,38 +60,32 @@ bool Percolation(int** m, int n) {
   if (Find(mas, 0) == Find(mas, n*n - 1)) {
     delete[] mas;
     delete[] count;
-   return true;
-  }
-  else {
-    delete[] mas;
-    delete[] count;
-   return false;
-   }
+    return true;
+  } else {
+     delete[] mas;
+     delete[] count;
+     return false;
+}
 
 
-  }
+}
 double MatVer(int** m, int n) {
-
   srand(time(NULL));
   double p = 0;
   int sum = 0;
   for (int i = 0; i < 1000; ++i) {
-  p+=sum / (n*n);
-  sum = 0;
+    p+=sum / (n*n);
+    sum = 0;
 
-  for (int j = 0; j<n; j++)
-  for (int k = 0; k< n; k++)
-    m[j][k] = 0;
-
-  while (!Percolation(m, n)) {
-    int x = rand() % n;
-    int y = rand() % n;
-    m[x][y] = 1;
-    sum++;
+    for (int j = 0; j < n; j++)
+    for (int k = 0; k < n; k++)
+      m[j][k] = 0;
+    while (!Percolation(m, n)) {
+      int x = rand() % n;
+      int y = rand() % n;
+      m[x][y] = 1;
+      sum++;
+    }
   }
-
-}
-
   return p/1000;
-
 }
