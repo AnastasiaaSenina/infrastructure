@@ -14,6 +14,7 @@ class SixHeap {
   vector < T> mas;
   void InsertEl(T a);
   void DeleteMin();
+  void DeleteEl(T a);
   T GetMin();
 };
 
@@ -83,6 +84,11 @@ void SixHeap<T>::DeleteMin() {
 template < typename T> 
 T SixHeap<T>::GetMin(){
   return mas[0];
+}
+
+template < typename T >
+void DeleteEl(T a) {
+/////////////////////???????????????//////////////
 }
 
 #endif  // INCLUDE_HEAP_H_
