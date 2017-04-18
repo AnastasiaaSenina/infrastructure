@@ -1,40 +1,35 @@
 #include <iostream>
-#include "add.h"
+#include "RBTree.h"
 #include "Heap.h"
-#include "PriorityQueue_RBtree.h"
-using std::pair;
-using std:: vector;
-using std:: make_pair;
+#include "Alg_Dijkstra.h"
 
-vector< int > FindShortestWay(int start, int n,
-  vector < vector < pair < int, int > > > g) {
-  vector < int > d(n, 1000000);
-  d[start] = 0;
-   H_PriorityQueue < pair < int, int> > q;
-  int len;
-  q.InsertEl(make_pair(d[start], start));
-  while (!q.isempty()) {
-    int current_node = q.GetMin().second;
-    q.DeleteMin();
-    for (unsigned int j = 0; j < g[current_node].size(); ++j) {
-      int node = g[current_node][j].second;
-      len = g[current_node][j].first;
-      if (d[current_node] + len < d[node]) {
-        q.erase(make_pair(d[node], node));
-        d[node] = d[current_node] + len;
-        q.insert(std::make_pair(d[node], node));
-      }
-    }
-  }
-  return d;
-}
-
+using std:: pair;
 int main() {
-  H_PriorityQueue<int> a;
-  a.InsertEl(5);
-  a.InsertEl(8);
-  a.InsertEl(4);
-  int res = a.FindMin();
+  vector < vector < pair < int, int > > > tree;
+  vector < pair < int, int> > node0(2);
+  vector < pair < int, int> > node1(3);
+  vector < pair < int, int> > node2(2);
+  vector < pair < int, int> > node3(2);
+  node0[0] = make_pair(1, 2);
+  node0[1] = make_pair(3, 1);
+  tree.push_back(node0);
+
+  node1[0] = make_pair(3, 0);
+  node1[1] = make_pair(1, 2);
+  node1[2] = make_pair(1, 3);
+  tree.push_back(node1);
+
+  node2[0] = make_pair(1, 0);
+  node2[1] = make_pair(10, 3);
+  tree.push_back(node2);
+
+  node3[0] = make_pair(10, 2);
+  node3[1] = make_pair(1, 1);
+  tree.push_back(node3);
+
+  vector < int > result(4);
+
+  result = Dijkstra_H(0, 4, tree);
 
 
 }

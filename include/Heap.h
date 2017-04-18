@@ -7,15 +7,19 @@ using std :: vector;
 template < typename T >
 class SixHeap {
  private:
+ vector < T> mas;
  void ShiftUP(int index);
  void ShiftDown();
  int MinSoon(int index_parent);
  public:
-  vector < T> mas;
+   T operator[](int index);
+
   void InsertEl(T a);
   void DeleteMin();
-  void DeleteEl(T a);
   T GetMin();
+  int Size() {
+    return mas.size();
+  }
 };
 
 template < typename T >
@@ -59,7 +63,7 @@ void SixHeap<T>::ShiftDown() {
   int parent = 0;
   //T current = mas[0];
   int index_min_soon = MinSoon(0);
-  while (index_min_soon <= mas.size() - 1 &&  mas[parent] > mas[index_min_soon]) {
+  while (index_min_soon >= 0 && index_min_soon <= mas.size() - 1 &&  mas[parent] > mas[index_min_soon]) {
     tmp = mas[index_min_soon];
     mas[index_min_soon] = mas[parent];
     mas[parent] = tmp;
@@ -87,8 +91,10 @@ T SixHeap<T>::GetMin(){
 }
 
 template < typename T >
-void DeleteEl(T a) {
-/////////////////////???????????????//////////////
+T SixHeap<T>::operator[](int index) {
+  return mas[index];
 }
+
+
 
 #endif  // INCLUDE_HEAP_H_

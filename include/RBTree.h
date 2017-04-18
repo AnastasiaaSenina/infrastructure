@@ -1,8 +1,9 @@
-#ifndef INCLUDE_ADD_H_
-#define INCLUDE_ADD_H_
+#ifndef INCLUDE_RBTREE_H_
+#define INCLUDE_RBTREE_H_
 #define NIL &NILNODE // сторожевой узел (для листа)
 #include <stack>
 using std::stack;
+using std:: pair;
 template < typename T>
 struct rbnode {
   T value;
@@ -16,9 +17,12 @@ struct rbnode {
     right = s;
     color = col;
   }
+  //rbnode<T> NILNODE();
 };
 
-rbnode<int> NILNODE = { 0, NULL, NULL, NULL, 0 };
+//template <typename T>
+
+extern rbnode<pair<int, int>> NILNODE;
 
 template <typename T>
 class RBTree {
@@ -28,14 +32,25 @@ private:
   void Rotateleft(rbnode<T> *x); // поворот на лево
   void InsertFixup(rbnode<T> *x); //восстановление баланса после вставки
   void DeleteFixup(rbnode<T> *x); // восстановление баланса после удаления
+  
 public:
+ // rbnode<T> NILNODE = { , NULL, NULL, NULL, 0 };
   rbnode<T>* root;
-  RBTree(); // коснтруктор просто
+  RBTree(); // коснтруктор простo
   ~RBTree();  // деструктор
   void Insert(T v); // вставка узла по значению
+  void DeleteMin();
   void Delete(T v); // удаление узла по значению
   void Delete(rbnode<T>* v); //  удаление узла по адресу
   rbnode<T>* Find(T v);  //поиск узла по значению
+  bool isempty() {
+    if (root == NULL)
+      return true;
+    else
+      return false;
+  }
+  T GetMin();
+  
 };
 
 template < typename T >
@@ -311,4 +326,25 @@ void RBTree<T>::Delete(rbnode<T> *v) {
   delete y;
 }
 
-#endif  // INCLUDE_ADD_H_
+
+template < typename T >
+void RBTree<T>::DeleteMin() {
+  rbnode<T>* rootcopy = root;
+  if (rootcopy != NULL) {
+    while (rootcopy->left != NIL)
+      rootcopy= rootcopy->left;
+    Delete(rootcopy);
+  }
+}
+
+template < typename T >
+T RBTree<T>::GetMin() {
+  rbnode<T>* rootcopy = root;
+  if (rootcopy != NULL) {
+    while (rootcopy->left != NIL)
+      rootcopy = rootcopy->left;
+    return rootcopy->value;
+  }
+}
+
+#endif  // INCLUDE_RBTREE_H_
