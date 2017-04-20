@@ -12,19 +12,13 @@ class SixHeap {
  void ShiftDown();
  int MinSoon(int index_parent);
  public:
-   T operator[](int index);
+  T operator[](int index);
   void InsertEl(T a);
   void DeleteMin();
   T GetMin();
   int Size() {
     return mas.size();
   }
-  vector < T> mas;
-  void InsertEl(T a);
-  void DeleteMin();
-  void DeleteEl(T a);
-  T GetMin();
-
 };
 
 template < typename T >

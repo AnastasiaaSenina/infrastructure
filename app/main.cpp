@@ -70,3 +70,4 @@ int main() {
       printf("%d: %d\n", i, table_min_ways[i]);
     }
   }
+}
