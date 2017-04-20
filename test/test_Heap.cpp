@@ -57,6 +57,13 @@ TEST(SixHeap, CanDeleteMinEl) {
 
 }
 
+
+
+TEST(SixHeap, ThrowWhenGetMinInEmptyHeap) {
+  SixHeap<int> a;
+  ASSERT_ANY_THROW(a.GetMin());
+}
+
 TEST(SixHeap, CanGetCorrectMinElement){
 
   SixHeap<int> a;

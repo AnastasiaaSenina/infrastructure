@@ -2,7 +2,7 @@
 #define INCLUDE_PRIORITYQUEUE_H_H_
 #include "Heap.h"
 #include "RBTree.h"
-
+#include <vector>
 template < typename T > 
 class H_PriorityQueue : public SixHeap<T> {
 
@@ -25,7 +25,7 @@ class RB_PriorityQueue : public RBTree<T> {
   public:
     RB_PriorityQueue(){};
     ~RB_PriorityQueue(){};
-    T GetMin() {
+    T Getmin() {
       return GetMin();
     }
     bool Isempty() {

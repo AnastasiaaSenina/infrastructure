@@ -10,19 +10,20 @@ struct rbnode {
   rbnode* left, *right, *parent;
   int color;// 0 -black, 1 - red;
 
-  rbnode<T>(T val = 0, rbnode<T>* a = NIL, rbnode<T>* b = NIL, rbnode<T>* s = NIL, int col = 0) {
+  rbnode<T>(T val = 0, rbnode<T>* a = reinterpret_cast<rbnode<T>*>(NIL),
+   rbnode<T>* b = reinterpret_cast<rbnode<T>*>(NIL), rbnode<T>* s = reinterpret_cast<rbnode<T>*>(NIL), int col = 0) {
     value = val;
     parent = a;
     left = b;
     right = s;
     color = col;
   }
-  //rbnode<T> NILNODE();
+  //rbnode<T> reinterpret_cast<rbnode<T>*>(NIL)NODE();
 };
 
 //template <typename T>
 
-extern rbnode<pair<int, int>> NILNODE;
+extern rbnode<pair<int, int>>NILNODE;
 
 template <typename T>
 class RBTree {
@@ -34,7 +35,7 @@ private:
   void DeleteFixup(rbnode<T> *x); // восстановление баланса после удалени€
   
 public:
- // rbnode<T> NILNODE = { , NULL, NULL, NULL, 0 };
+ // rbnode<T> reinterpret_cast<rbnode<T>*>(NIL)NODE = { , NULL, NULL, NULL, 0 };
   rbnode<T>* root;
   RBTree(); // коснтруктор простo
   ~RBTree();  // деструктор
@@ -43,8 +44,9 @@ public:
   void Delete(T v); // удаление узла по значению
   void Delete(rbnode<T>* v); //  удаление узла по адресу
   rbnode<T>* Find(T v);  //поиск узла по значению
+  bool CHECKCORRECT();
   bool isempty() {
-    if (root == NULL)
+    if (root == reinterpret_cast<rbnode<T>*>(NIL) || root == NULL )
       return true;
     else
       return false;
@@ -60,19 +62,21 @@ RBTree<T>::RBTree(){
 template < typename T >
 RBTree<T>::~RBTree(){
   stack< rbnode <T>* > a;
-  if (root != NULL) {
+  if (root != NULL && root!= reinterpret_cast<rbnode<T>*>(NIL)) {
     a.push(root);
   }  else {
+    if (root!= reinterpret_cast<rbnode<T>*>(NIL))
     delete root;
   }
   while (!a.empty()) {
     rbnode<T>* node = a.top();
     a.pop();
-    if (node->left != NIL)
+    if (node->left != reinterpret_cast<rbnode<T>*>(NIL))
       a.push(node->left);
-    if (node->right != NIL)
+    if (node->right != reinterpret_cast<rbnode<T>*>(NIL))
       a.push(node->right);
-      delete node;
+     if(node != reinterpret_cast<rbnode<T>*>(NIL))
+     delete node;
   }
 }
 ////////////////////////////поворот на право
@@ -85,9 +89,9 @@ void RBTree<T>::RotateRight(rbnode<T> *x) {
   rbnode<T> *y = x->left;
   // ‘ормирование левое поддерево дл€ x
   x->left = y->right;
-  if (y->right != NIL)
+  if (y->right != reinterpret_cast<rbnode<T>*>(NIL))
     y->right->parent = x;
-  if (y != NIL)
+  if (y != reinterpret_cast<rbnode<T>*>(NIL))
     y->parent = x->parent;
   if (x->parent != NULL) {
     if (x == x->parent->right)
@@ -97,10 +101,10 @@ void RBTree<T>::RotateRight(rbnode<T> *x) {
   else root = y;
   // —в€зывание x и y
   y->right = x;
-  if (x != NIL)
+  if (x != reinterpret_cast<rbnode<T>*>(NIL))
     x->parent = y;
-  if (flag)
-    root = root->parent;
+ // if (flag)
+ //   root = root->parent;
 
 }
 ////////////////////////////поворот на лево
@@ -112,9 +116,9 @@ void RBTree<T>::Rotateleft(rbnode<T> *x) {
   rbnode<T> *y = x->right;
  // root = x->parent;
   x->right = y->left;
-  if (y->left != NIL)
+  if (y->left != reinterpret_cast<rbnode<T>*>(NIL))
     y->left->parent = x;
-  if (y != NIL)
+  if (y != reinterpret_cast<rbnode<T>*>(NIL))
     y->parent = x->parent;
   if (x->parent != NULL) {
     if (x == x->parent->left)
@@ -124,16 +128,16 @@ void RBTree<T>::Rotateleft(rbnode<T> *x) {
   }
   else root = y;
   y->left = x;
-  if (x != NIL)
+  if (x != reinterpret_cast<rbnode<T>*>(NIL))
     x->parent = y;
-  if ( flag )
-    root = root->parent;
+//  if ( flag )
+ //   root = root->parent;
 }
 
 /////////////////////балансировка после вставки
 template < typename T >
 void RBTree<T>::InsertFixup(rbnode <T> *x) {
-  while (x != root && x->parent->color == 1) {
+  while (x != root && x->parent->color == 1 && x->parent->parent != NULL) {
     if (x->parent == x->parent->parent->left) {
       rbnode<T> *uncle = x->parent->parent->right;
       if (uncle->color == 1) {
@@ -176,7 +180,7 @@ void RBTree<T>::InsertFixup(rbnode <T> *x) {
 //////////////////////балансировка после удалени€
 template < typename T >
 void RBTree<T>::DeleteFixup(rbnode <T>* x) {
-  while (x != root && x->color == 0) {
+  while ( x!= reinterpret_cast<rbnode<T>*>(NIL) && x != root && x->color == 0) {
     if (x == x->parent->left)    {  // ”дал€емый элемент Ц корень левого поддерева
       rbnode<T> *brother = x->parent->right;
       if (brother->color == 1) {
@@ -205,6 +209,7 @@ void RBTree<T>::DeleteFixup(rbnode <T>* x) {
     }
     else {  // ”дал€емый элемент Ц корень правого поддерева
       rbnode<T> *brother = x->parent->left;
+      if (brother != NULL) {
       if (brother->color == 1) {
         brother->color = 0;
         x->parent->color = 1;
@@ -228,28 +233,31 @@ void RBTree<T>::DeleteFixup(rbnode <T>* x) {
         RotateRight(x->parent);
         x = root;
       }
+      
     }
   }
+  }
   x->color = 0;
+
 }
 ////////////////////////////////////вставка
 template < typename T >
 void RBTree<T>::Insert(T v) {
   if (root == nullptr) {
-    root = new rbnode<T>(v, NIL, NIL, NIL, 0);
+    root = new rbnode<T>(v, NULL, reinterpret_cast<rbnode<T>*>(NIL), reinterpret_cast<rbnode<T>*>(NIL), 0);
   }
   else {
     rbnode<T> *current = root;
     rbnode<T> *parent = NULL;
     rbnode<T> *newnode;
-    while (current != NIL) {
+    while (current != reinterpret_cast<rbnode<T>*>(NIL)) {
       parent = current;
       if (v < current->value)
         current = current->left;
       else
         current = current->right;
     }
-    newnode = new rbnode<T>(v, parent, NIL, NIL, 1);
+    newnode = new rbnode<T>(v, parent, reinterpret_cast<rbnode<T>*>(NIL), reinterpret_cast<rbnode<T>*>(NIL), 1);
     if (parent == NULL) {
       root = newnode;
     }
@@ -267,22 +275,30 @@ void RBTree<T>::Insert(T v) {
 
 template < typename T >
 void RBTree<T>::Delete(T v) {
-  rbnode<T> *x = Find(v);
-  Delete(x);
+  if (root != NULL) {
+    rbnode<T> *x = Find(v);
+    Delete(x);
+  } else {
+     throw 1;
+   }
 }
 /////////////////////////////// поиск по значению
 template < typename T >
 rbnode<T>* RBTree<T>::Find(T v)  {
-  if (root != NULL) {
+  if (root != NULL && root != reinterpret_cast<rbnode<T>*>(NIL)) {
     rbnode<T> *current = root;
     for (;;) {
-      if (current == NIL) return nullptr;
+      if (current == reinterpret_cast<rbnode<T>*>(NIL)) return nullptr;
       if (current->value == v)
         return current;
-      if (v < current->value)
-        current = current->left;
-      else
-        current = current->right;
+      if (v < current->value) {
+        if ( current->left != NULL)
+           current = current->left;
+           }
+      else {
+        if (current->right != NULL)
+          current = current->right;
+        }
      }
     } else {
        throw 1;
@@ -292,19 +308,20 @@ rbnode<T>* RBTree<T>::Find(T v)  {
 
 template < typename T >
 void RBTree<T>::Delete(rbnode<T> *v) {
+  if (root != NULL) {
   rbnode<T> *x, *y;
-  if (v == NULL || v == NIL)
+  if (v == NULL || v == reinterpret_cast<rbnode<T>*>(NIL))
     return;
-  if (v->left == NIL || v->right == NIL) {
+  if (v->left == reinterpret_cast<rbnode<T>*>(NIL) || v->right == reinterpret_cast<rbnode<T>*>(NIL)) {
     y = v;
   }
   else {
     y = v->right;
-    while (y->left != NIL) {
+    while (y->left != reinterpret_cast<rbnode<T>*>(NIL)) {
       y = y->left;
     }
   }
-  if (y->left != NIL)
+  if (y->left != reinterpret_cast<rbnode<T>*>(NIL))
     x = y->left;
   else
     x = y->right;
@@ -323,7 +340,17 @@ void RBTree<T>::Delete(rbnode<T> *v) {
   if (y->color == 0) {
     DeleteFixup(x);
   }
-  delete y;
+
+  if (y == root)
+    root = nullptr;
+  else
+
+    delete y;
+  } else {
+    throw 1;
+  }
+
+
 }
 
 
@@ -331,7 +358,7 @@ template < typename T >
 void RBTree<T>::DeleteMin() {
   rbnode<T>* rootcopy = root;
   if (rootcopy != NULL) {
-    while (rootcopy->left != NIL)
+    while (rootcopy->left != reinterpret_cast<rbnode<T>*>(NIL))
       rootcopy= rootcopy->left;
     Delete(rootcopy);
   }
@@ -341,10 +368,62 @@ template < typename T >
 T RBTree<T>::GetMin() {
   rbnode<T>* rootcopy = root;
   if (rootcopy != NULL) {
-    while (rootcopy->left != NIL)
+    while (rootcopy->left != reinterpret_cast<rbnode<T>*>(NIL))
       rootcopy = rootcopy->left;
     return rootcopy->value;
   }
 }
+/*
+template < typename T >
+bool RBTree<T>::CHECKCORRECT() { //проверка на "черную" высоту и...
+  vector<int> BH;
+  stack<rbnode<T>*> a;
+  int Black_H = 0;
+  int H = 0;
 
+  if (root != 0) {
+    bool flag1 = false;
+    bool flag2  = false;
+    a.push(root);
+    while (!a.empty()) {
+      rbnode<T> * current_node = a.top();
+      a.pop();
+      if (current_node->color == 0) {
+        Black_H++;
+        } else {
+          if (current_node->parent->color != 0) 
+            return false;
+        }
+      if (current_node->left == reinterpret_cast<rbnode<T>*>(NIL)) {
+        BH.push_back(Black_H+1);
+       
+      } else {
+        a.push(current_node->left);
+        //flag1 = false;
+        flag1 = true;
+      }
+      if (current_node->right == reinterpret_cast<rbnode<T>*>(NIL)) {
+        BH.push_back(Black_H + 1);
+        
+      }
+      else {
+        a.push(current_node->right);
+       // flag2 = false;
+        flag2 = true;
+      }
+      if (flag1 != true && flag2 != true && current_node->color == 0 )
+        Black_H--;
+       flag1 = false;
+       flag2 = false;
+         }
+  }
+
+  for (int i = 0; i < BH.size(); ++i) {
+    if (BH[i] != BH[0])
+      return false;
+  }
+  return true;
+   
+}
+*/
 #endif  // INCLUDE_RBTREE_H_
