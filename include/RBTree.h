@@ -1,6 +1,6 @@
 #ifndef INCLUDE_RBTREE_H_
 #define INCLUDE_RBTREE_H_
-#define NIL &NILNODE // сторожевой узел (для листа)
+#define NIL &NILNODE //  сторожевой узел (для листа)
 #include <stack>
 using std::stack;
 using std:: pair;
@@ -8,65 +8,60 @@ template < typename T>
 struct rbnode {
   T value;
   rbnode* left, *right, *parent;
-  int color;// 0 -black, 1 - red;
+  int color;//  0 -black, 1 - red;
 
   rbnode<T>(T val = 0, rbnode<T>* a = reinterpret_cast<rbnode<T>*>(NIL),
-   rbnode<T>* b = reinterpret_cast<rbnode<T>*>(NIL), rbnode<T>* s = reinterpret_cast<rbnode<T>*>(NIL), int col = 0) {
+   rbnode<T>* b = reinterpret_cast<rbnode<T>*>(NIL),
+   rbnode<T>* s = reinterpret_cast<rbnode<T>*>(NIL), int col = 0) {
     value = val;
     parent = a;
     left = b;
     right = s;
     color = col;
   }
-  //rbnode<T> reinterpret_cast<rbnode<T>*>(NIL)NODE();
 };
-
-//template <typename T>
 
 extern rbnode<pair<int, int>>NILNODE;
 
 template <typename T>
 class RBTree {
 private:
-  // rbnode<T>* root;
-  void RotateRight(rbnode<T> *x); //поворот на право
-  void Rotateleft(rbnode<T> *x); // поворот на лево
-  void InsertFixup(rbnode<T> *x); //восстановление баланса после вставки
-  void DeleteFixup(rbnode<T> *x); // восстановление баланса после удаления
+  void RotateRight(rbnode<T> *x); //  поворот на право
+  void Rotateleft(rbnode<T> *x); //  поворот на лево
+  void InsertFixup(rbnode<T> *x); //  восстановление баланса после вставки
+  void DeleteFixup(rbnode<T> *x); //  восстановление баланса после удаления
   
-public:
- // rbnode<T> reinterpret_cast<rbnode<T>*>(NIL)NODE = { , NULL, NULL, NULL, 0 };
-  rbnode<T>* root;
-  RBTree(); // коснтруктор простo
-  ~RBTree();  // деструктор
-  void Insert(T v); // вставка узла по значению
-  void DeleteMin();
-  void Delete(T v); // удаление узла по значению
-  void Delete(rbnode<T>* v); //  удаление узла по адресу
-  rbnode<T>* Find(T v);  //поиск узла по значению
-  bool CHECKCORRECT();
-  bool isempty() {
-    if (root == reinterpret_cast<rbnode<T>*>(NIL) || root == NULL )
-      return true;
-    else
-      return false;
-  }
-  T GetMin();
-  
+ public:
+   rbnode<T>* root;
+   RBTree(); //  коснтруктор простo
+   ~RBTree(); //  деструктор
+   void Insert(T v); //  вставка узла по значению
+   void DeleteMin();
+   void Delete(T v); //  удаление узла по значению
+   void Delete(rbnode<T>* v); //  удаление узла по адресу
+   rbnode<T>* Find(T v);  //  поиск узла по значению
+   bool CHECKCORRECT();
+   bool isempty() {
+     if (root == reinterpret_cast<rbnode<T>*>(NIL) || root == NULL )
+       return true;
+     else
+       return false;
+   }
+   T GetMin();
 };
 
 template < typename T >
-RBTree<T>::RBTree(){
+RBTree<T>::RBTree() {
   root = nullptr;
 }
 template < typename T >
-RBTree<T>::~RBTree(){
+RBTree<T>::~RBTree() {
   stack< rbnode <T>* > a;
   if (root != NULL && root!= reinterpret_cast<rbnode<T>*>(NIL)) {
     a.push(root);
-  }  else {
+  } else {
     if (root!= reinterpret_cast<rbnode<T>*>(NIL))
-    delete root;
+      delete root;
   }
   while (!a.empty()) {
     rbnode<T>* node = a.top();
@@ -85,9 +80,7 @@ void RBTree<T>::RotateRight(rbnode<T> *x) {
   bool flag = false;
   if (x == root)
     flag = true;
-
   rbnode<T> *y = x->left;
-  // Формирование левое поддерево для x
   x->left = y->right;
   if (y->right != reinterpret_cast<rbnode<T>*>(NIL))
     y->right->parent = x;
@@ -99,13 +92,9 @@ void RBTree<T>::RotateRight(rbnode<T> *x) {
     else x->parent->left = y;
   }
   else root = y;
-  // Связывание x и y
   y->right = x;
   if (x != reinterpret_cast<rbnode<T>*>(NIL))
     x->parent = y;
- // if (flag)
- //   root = root->parent;
-
 }
 ////////////////////////////поворот на лево
 template <typename T>
@@ -114,7 +103,7 @@ void RBTree<T>::Rotateleft(rbnode<T> *x) {
   if ( x == root)
     flag = true;
   rbnode<T> *y = x->right;
- // root = x->parent;
+ //  root = x->parent;
   x->right = y->left;
   if (y->left != reinterpret_cast<rbnode<T>*>(NIL))
     y->left->parent = x;
@@ -127,13 +116,10 @@ void RBTree<T>::Rotateleft(rbnode<T> *x) {
       x->parent->right = y;
   }
   else root = y;
-  y->left = x;
+    y->left = x;
   if (x != reinterpret_cast<rbnode<T>*>(NIL))
     x->parent = y;
-//  if ( flag )
- //   root = root->parent;
 }
-
 /////////////////////балансировка после вставки
 template < typename T >
 void RBTree<T>::InsertFixup(rbnode <T> *x) {
@@ -177,11 +163,11 @@ void RBTree<T>::InsertFixup(rbnode <T> *x) {
 }
 
 
-//////////////////////балансировка после удаления
+ //  балансировка после удаления
 template < typename T >
 void RBTree<T>::DeleteFixup(rbnode <T>* x) {
   while ( x!= reinterpret_cast<rbnode<T>*>(NIL) && x != root && x->color == 0) {
-    if (x == x->parent->left)    {  // Удаляемый элемент – корень левого поддерева
+    if (x == x->parent->left)    {
       rbnode<T> *brother = x->parent->right;
       if (brother->color == 1) {
         brother->color = 0;
@@ -207,7 +193,7 @@ void RBTree<T>::DeleteFixup(rbnode <T>* x) {
         x = root;
       }
     }
-    else {  // Удаляемый элемент – корень правого поддерева
+    else {
       rbnode<T> *brother = x->parent->left;
       if (brother != NULL) {
       if (brother->color == 1) {
@@ -240,11 +226,11 @@ void RBTree<T>::DeleteFixup(rbnode <T>* x) {
   x->color = 0;
 
 }
-////////////////////////////////////вставка
 template < typename T >
 void RBTree<T>::Insert(T v) {
   if (root == nullptr) {
-    root = new rbnode<T>(v, NULL, reinterpret_cast<rbnode<T>*>(NIL), reinterpret_cast<rbnode<T>*>(NIL), 0);
+    root = new rbnode<T>(v, NULL, reinterpret_cast<rbnode<T>*>(NIL),
+    reinterpret_cast<rbnode<T>*>(NIL), 0);
   }
   else {
     rbnode<T> *current = root;
@@ -257,7 +243,8 @@ void RBTree<T>::Insert(T v) {
       else
         current = current->right;
     }
-    newnode = new rbnode<T>(v, parent, reinterpret_cast<rbnode<T>*>(NIL), reinterpret_cast<rbnode<T>*>(NIL), 1);
+    newnode = new rbnode<T>(v, parent, reinterpret_cast<rbnode<T>*>(NIL),
+    reinterpret_cast<rbnode<T>*>(NIL), 1);
     if (parent == NULL) {
       root = newnode;
     }
@@ -268,7 +255,7 @@ void RBTree<T>::Insert(T v) {
       else {
         parent->right = newnode;
       }
-      InsertFixup(newnode);  // балансировка
+      InsertFixup(newnode);
     }
   }
 }
@@ -282,7 +269,6 @@ void RBTree<T>::Delete(T v) {
      throw 1;
    }
 }
-/////////////////////////////// поиск по значению
 template < typename T >
 rbnode<T>* RBTree<T>::Find(T v)  {
   if (root != NULL && root != reinterpret_cast<rbnode<T>*>(NIL)) {
@@ -304,8 +290,6 @@ rbnode<T>* RBTree<T>::Find(T v)  {
        throw 1;
     }
 }
-
-
 template < typename T >
 void RBTree<T>::Delete(rbnode<T> *v) {
   if (root != NULL) {
@@ -340,20 +324,14 @@ void RBTree<T>::Delete(rbnode<T> *v) {
   if (y->color == 0) {
     DeleteFixup(x);
   }
-
   if (y == root)
     root = nullptr;
   else
-
     delete y;
   } else {
     throw 1;
   }
-
-
 }
-
-
 template < typename T >
 void RBTree<T>::DeleteMin() {
   rbnode<T>* rootcopy = root;
@@ -363,7 +341,6 @@ void RBTree<T>::DeleteMin() {
     Delete(rootcopy);
   }
 }
-
 template < typename T >
 T RBTree<T>::GetMin() {
   rbnode<T>* rootcopy = root;

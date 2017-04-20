@@ -2,7 +2,6 @@
 #include "Heap.h"
 
 TEST(SixHeap, CanInseartElInHeap) {
-
   SixHeap< int> a;
   vector<int> res;
 
@@ -26,11 +25,9 @@ TEST(SixHeap, CanInseartElInHeap) {
 
   for (int i = 0; i < res.size(); ++i)
   EXPECT_EQ(res[i], a[i]);
-
 }
 
 TEST(SixHeap, CanDeleteMinEl) {
-
   SixHeap<int> a;
   vector<int> res;
 
@@ -54,7 +51,6 @@ TEST(SixHeap, CanDeleteMinEl) {
 
   for (int i = 0; i < res.size(); ++i)
     EXPECT_EQ(res[i], a[i]);
-
 }
 
 
@@ -64,8 +60,7 @@ TEST(SixHeap, ThrowWhenGetMinInEmptyHeap) {
   ASSERT_ANY_THROW(a.GetMin());
 }
 
-TEST(SixHeap, CanGetCorrectMinElement){
-
+TEST(SixHeap, CanGetCorrectMinElement) {
   SixHeap<int> a;
   a.InsertEl(10);
   a.InsertEl(13);
@@ -77,19 +72,15 @@ TEST(SixHeap, CanGetCorrectMinElement){
   a.InsertEl(7);
 
   EXPECT_EQ(a.GetMin(), 4);
-
 }
 
-TEST(SixHeap, ThrowWhenDeleteMinElementInEmpty){
-
+TEST(SixHeap, ThrowWhenDeleteMinElementInEmpty) {
   SixHeap<int> a;
 
   ASSERT_ANY_THROW(a.DeleteMin());
-
 }
 
 TEST(SixHeap, CanCorrectGetSize) {
-
   SixHeap< int> a;
   vector<int> res;
 
@@ -103,7 +94,4 @@ TEST(SixHeap, CanCorrectGetSize) {
   a.InsertEl(7);
 
   EXPECT_EQ(8, a.Size());
-
 }
-
-

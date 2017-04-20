@@ -7,10 +7,10 @@ using std :: vector;
 template < typename T >
 class SixHeap {
  private:
- vector < T> mas;
- void ShiftUP(int index);
- void ShiftDown();
- int MinSoon(int index_parent);
+  vector < T> mas;
+  void ShiftUP(int index);
+  void ShiftDown();
+  int MinSoon(int index_parent);
  public:
   T operator[](int index);
   void InsertEl(T a);
@@ -42,15 +42,16 @@ int SixHeap<T>::MinSoon(int index_parent) {
   int i;
   int index;
 
-  if (6 * index_parent + 1 < mas.size())
+  if (6 * index_parent + 1 < mas.size()) {
     i = 6 * index_parent + 1;
-  else
+  } else {
     return -1;
+    }
     index = i;
-    
-  while (i + 1 < mas.size()&& i <= 6*index_parent + 6){
-    if (mas[index] > mas[i+1])
+  while (i + 1 < mas.size() && i <= 6*index_parent + 6) {
+    if (mas[index] > mas[i + 1]) {
      index = i+1;
+     }
      i++;
   }
   return index;
@@ -61,7 +62,8 @@ void SixHeap<T>::ShiftDown() {
   T tmp;
   int parent = 0;
   int index_min_soon = MinSoon(0);
-  while (index_min_soon >= 0 && index_min_soon <= mas.size() - 1 &&  mas[parent] > mas[index_min_soon]) {
+  while (index_min_soon >= 0 && index_min_soon <= mas.size() - 1
+   &&  mas[parent] > mas[index_min_soon]) {
     tmp = mas[index_min_soon];
     mas[index_min_soon] = mas[parent];
     mas[parent] = tmp;
@@ -82,21 +84,17 @@ void SixHeap<T>::DeleteMin() {
       throw 1;
     }
 }
-
 template < typename T> 
-T SixHeap<T>::GetMin(){
+T SixHeap<T>::GetMin() {
   if (mas.size() != 0) {
     return mas[0];
   } else { 
     throw 1;
   }
 }
-
 template < typename T >
 T SixHeap<T>::operator[](int index) {
   return mas[index];
 }
-
-
 
 #endif  // INCLUDE_HEAP_H_

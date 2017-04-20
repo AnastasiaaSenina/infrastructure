@@ -3,15 +3,14 @@
 #include "Heap.h"
 #include "RBTree.h"
 #include <vector>
-template < typename T > 
+template < typename T >
 class H_PriorityQueue : public SixHeap<T> {
-
  public:
-   H_PriorityQueue(){};
-  ~H_PriorityQueue(){};
+   H_PriorityQueue(){}
+  ~H_PriorityQueue(){}
    T FindMin() {
-    return GetMin();
-  };
+     return GetMin();
+   }
    bool isempty() {
      if (Size() == 0)
        return true;
@@ -19,7 +18,6 @@ class H_PriorityQueue : public SixHeap<T> {
        return false;
    }
 };
-
 template < typename T >
 class RB_PriorityQueue : public RBTree<T> {
   public:
@@ -31,7 +29,5 @@ class RB_PriorityQueue : public RBTree<T> {
     bool Isempty() {
       return isempty();
     }
-
 };
-
 #endif  // INCLUDE_PRIORITYQUEUE_H_H_
