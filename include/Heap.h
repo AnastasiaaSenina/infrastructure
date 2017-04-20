@@ -63,7 +63,7 @@ void SixHeap<T>::ShiftDown() {
   int parent = 0;
   int index_min_soon = MinSoon(0);
   while (index_min_soon >= 0 && index_min_soon <= mas.size() - 1
-   &&  mas[parent] > mas[index_min_soon]) {
+  &&  mas[parent] > mas[index_min_soon]) {
     tmp = mas[index_min_soon];
     mas[index_min_soon] = mas[parent];
     mas[parent] = tmp;
@@ -84,11 +84,11 @@ void SixHeap<T>::DeleteMin() {
       throw 1;
     }
 }
-template < typename T> 
+template < typename T>
 T SixHeap<T>::GetMin() {
   if (mas.size() != 0) {
     return mas[0];
-  } else { 
+  } else {
     throw 1;
   }
 }
