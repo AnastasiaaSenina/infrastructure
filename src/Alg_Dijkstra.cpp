@@ -25,7 +25,6 @@ vector< int > Dijkstra_RB(int start, vector < vector < pair <int, int> > > g) {
         int node = g[current_node][j].second;
         len = g[current_node][j].first;
         if (d[current_node] + len < d[node]) {
-
           d[node] = d[current_node] + len;
           q.Insert(std::make_pair(d[node], node));
         }

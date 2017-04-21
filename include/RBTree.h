@@ -92,8 +92,7 @@ void RBTree<T>::RotateRight(rbnode<T> *x) {
   if (x->parent != NULL) {
     if (x == x->parent->right) {
       x->parent->right = y;
-    }
-    else {
+    } else {
       x->parent->left = y;
     }
   } else {
@@ -107,7 +106,7 @@ void RBTree<T>::RotateRight(rbnode<T> *x) {
 ////////////////////////////поворот на лево
 template <typename T>
 void RBTree<T>::Rotateleft(rbnode<T> *x) {
- bool flag = false;
+  bool flag = false;
   if ( x == root)
     flag = true;
   rbnode<T> *y = x->right;
@@ -121,8 +120,9 @@ void RBTree<T>::Rotateleft(rbnode<T> *x) {
       x->parent->left = y;
     else
       x->parent->right = y;
+  } else {
+    root = y;
   }
-  else root = y;
     y->left = x;
   if (x != reinterpret_cast<rbnode<T>*>(NIL))
     x->parent = y;
@@ -137,8 +137,7 @@ void RBTree<T>::InsertFixup(rbnode <T> *x) {
         x->parent->color = uncle->color = 0;
         x->parent->parent->color = 1;
         x = x->parent->parent;
-      }
-      else {
+      } else {
         if (x == x->parent->right) {
           x = x->parent;
           Rotateleft(x);
@@ -147,15 +146,13 @@ void RBTree<T>::InsertFixup(rbnode <T> *x) {
         x->parent->parent->color = 1;
         RotateRight(x->parent->parent);
       }
-    }
-    else {
+    } else {
       rbnode<T> *uncle = x->parent->parent->left;
       if (uncle->color == 1) {
         x->parent->color = uncle->color = 0;
         x->parent->parent->color = 1;
         x = x->parent->parent;
-      }
-      else {
+      } else {
         if (x == x->parent->left) {
           x = x->parent;
           RotateRight(x);
@@ -174,7 +171,7 @@ void RBTree<T>::InsertFixup(rbnode <T> *x) {
 template < typename T >
 void RBTree<T>::DeleteFixup(rbnode <T>* x) {
   while ( x!= reinterpret_cast<rbnode<T>*>(NIL) && x != root && x->color == 0) {
-    if (x == x->parent->left)    {
+    if (x == x->parent->left) {
       rbnode<T> *brother = x->parent->right;
       if (brother->color == 1) {
         brother->color = 0;
@@ -185,8 +182,7 @@ void RBTree<T>::DeleteFixup(rbnode <T>* x) {
       if (brother->left->color == 0 && brother->right->color == 0) {
         brother->color = 1;
         x = x->parent;
-      }
-      else {
+      } else {
         if (brother->right->color == 0) {
           brother->left->color = 0;
           brother->color = 1;
@@ -199,67 +195,61 @@ void RBTree<T>::DeleteFixup(rbnode <T>* x) {
         Rotateleft(x->parent);
         x = root;
       }
-    }
-    else {
+    } else {
       rbnode<T> *brother = x->parent->left;
       if (brother != NULL) {
-      if (brother->color == 1) {
-        brother->color = 0;
-        x->parent->color = 1;
-        RotateRight(x->parent);
-        brother = x->parent->left;
-      }
-      if (brother->right->color == 0 && brother->left->color == 0) {
-        brother->color = 1;
-        x = x->parent;
-      }
-      else {
-        if (brother->left->color == 0) {
-          brother->right->color = 0;
-          brother->color = 1;
-          Rotateleft(brother);
+        if (brother->color == 1) {
+          brother->color = 0;
+          x->parent->color = 1;
+          RotateRight(x->parent);
           brother = x->parent->left;
         }
-        brother->color = x->parent->color;
-        x->parent->color = 0;
-        brother->left->color = 1;
-        RotateRight(x->parent);
-        x = root;
+        if (brother->right->color == 0 && brother->left->color == 0) {
+          brother->color = 1;
+          x = x->parent;
+        } else {
+          if (brother->left->color == 0) {
+            brother->right->color = 0;
+            brother->color = 1;
+            Rotateleft(brother);
+            brother = x->parent->left;
+          }
+          brother->color = x->parent->color;
+          x->parent->color = 0;
+          brother->left->color = 1;
+          RotateRight(x->parent);
+          x = root;
+        }
       }
-      
     }
   }
-  }
   x->color = 0;
-
 }
 template < typename T >
 void RBTree<T>::Insert(T v) {
   if (root == nullptr) {
     root = new rbnode<T>(v, NULL, reinterpret_cast<rbnode<T>*>(NIL),
     reinterpret_cast<rbnode<T>*>(NIL), 0);
-  }
-  else {
+  } else {
     rbnode<T> *current = root;
     rbnode<T> *parent = NULL;
     rbnode<T> *newnode;
     while (current != reinterpret_cast<rbnode<T>*>(NIL)) {
       parent = current;
-      if (v < current->value)
+      if (v < current->value) {
         current = current->left;
-      else
+      } else {
         current = current->right;
+      }
     }
     newnode = new rbnode<T>(v, parent, reinterpret_cast<rbnode<T>*>(NIL),
     reinterpret_cast<rbnode<T>*>(NIL), 1);
     if (parent == NULL) {
       root = newnode;
-    }
-    else {
+    } else {
       if (newnode->value < parent->value) {
         parent->left = newnode;
-      }
-      else {
+      } else {
         parent->right = newnode;
       }
       InsertFixup(newnode);
@@ -277,25 +267,25 @@ void RBTree<T>::Delete(T v) {
    }
 }
 template < typename T >
-rbnode<T>* RBTree<T>::Find(T v)  {
+rbnode<T>* RBTree<T>::Find(T v) {
   if (root != NULL && root != reinterpret_cast<rbnode<T>*>(NIL)) {
     rbnode<T> *current = root;
     for (;;) {
-      if (current == reinterpret_cast<rbnode<T>*>(NIL)) return nullptr;
+      if (current == reinterpret_cast<rbnode<T>*>(NIL))
+        return nullptr;
       if (current->value == v)
         return current;
       if (v < current->value) {
         if ( current->left != NULL)
-           current = current->left;
-           }
-      else {
+          current = current->left;
+      } else {
         if (current->right != NULL)
           current = current->right;
-        }
-     }
-    } else {
-       throw 1;
+      }
     }
+  } else {
+    throw 1;
+  }
 }
 template < typename T >
 void RBTree<T>::Delete(rbnode<T> *v) {

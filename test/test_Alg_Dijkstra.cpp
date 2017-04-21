@@ -6,7 +6,6 @@ using std:: vector;
 
 
 TEST(Alg_Dijkstra_H, Test1) {
-
   vector < int > res;
   res.push_back(0);
   res.push_back(3);
@@ -26,8 +25,6 @@ TEST(Alg_Dijkstra_H, Test1) {
 
   node1[0] = make_pair(7, 2);
   tree.push_back(node1);
-
-
 
   node2[0] = make_pair(1, 0);
   node2[1] = make_pair(11, 4);
@@ -47,9 +44,7 @@ TEST(Alg_Dijkstra_H, Test1) {
   EXPECT_EQ(result, res);
 }
 
-
 TEST(Alg_Dijkstra_RBTRee, Test2) {
-
   vector < int > res;
   res.push_back(0);
   res.push_back(3);
@@ -69,8 +64,6 @@ TEST(Alg_Dijkstra_RBTRee, Test2) {
 
   node1[0] = make_pair(7, 2);
   tree.push_back(node1);
-
-
 
   node2[0] = make_pair(1, 0);
   node2[1] = make_pair(11, 4);
@@ -91,7 +84,6 @@ TEST(Alg_Dijkstra_RBTRee, Test2) {
 }
 
 TEST(Alg_Dijkstra_RBTRee, Test3) {
-
   vector < int > res;
   res.push_back(0);
   res.push_back(3);
@@ -122,14 +114,12 @@ TEST(Alg_Dijkstra_RBTRee, Test3) {
 
   vector < int > result(4);
   result = Dijkstra_RB(0, tree);
-
 
   EXPECT_EQ(result, res);
 }
 
 
 TEST(Alg_Dijkstra_RBTRee, Test4) {
-
   vector < int > res;
   res.push_back(0);
   res.push_back(14);
@@ -137,7 +127,6 @@ TEST(Alg_Dijkstra_RBTRee, Test4) {
   res.push_back(9);
   res.push_back(11);
   res.push_back(8);
-
 
   vector < vector < pair < int, int > > > tree;
   vector < pair < int, int> > node0(1);
@@ -169,12 +158,10 @@ TEST(Alg_Dijkstra_RBTRee, Test4) {
   vector < int > result(4);
   result = Dijkstra_RB(0, tree);
 
-
   EXPECT_EQ(result, res);
 }
 
 TEST(Alg_Dijkstra_H, Test4) {
-
   vector < int > res;
   res.push_back(0);
   res.push_back(3);
@@ -206,12 +193,10 @@ TEST(Alg_Dijkstra_H, Test4) {
   vector < int > result(4);
   result = Dijkstra_H(0, tree);
 
-
   EXPECT_EQ(result, res);
 }
 
 TEST(Alg_Dijkstra_H, Test5) {
-
   vector < int > res;
   res.push_back(0);
   res.push_back(14);
@@ -219,7 +204,6 @@ TEST(Alg_Dijkstra_H, Test5) {
   res.push_back(9);
   res.push_back(11);
   res.push_back(8);
-
 
   vector < vector < pair < int, int > > > tree;
   vector < pair < int, int> > node0(1);
@@ -250,7 +234,6 @@ TEST(Alg_Dijkstra_H, Test5) {
 
   vector < int > result(4);
   result = Dijkstra_H(0, tree);
-
 
   EXPECT_EQ(result, res);
 }

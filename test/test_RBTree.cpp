@@ -64,7 +64,6 @@ TEST(RBTree, CanDeleteForValueInTree) {
   res = a.Find(4);
 
   EXPECT_EQ(res, nullptr);
-
 }
 
 TEST(RBTree, ThrowWhenDeleteInEmptyTree) {
@@ -92,7 +91,6 @@ TEST(RBTree, CanDeleteForAdressInTree) {
   EXPECT_TRUE(a.root->left->left == reinterpret_cast<rbnode<int>*>(NIL));
   EXPECT_EQ(a.root->value, 4);
   EXPECT_TRUE(a.root->right == reinterpret_cast<rbnode<int>*>(NIL));
-
 }
 
 TEST(RBTree, CanCorrectDeleteMin) {
@@ -110,5 +108,4 @@ TEST(RBTree, CanCorrectDeleteMin) {
   res = a.Find(1);
 
   EXPECT_EQ(res, nullptr);
-
 }

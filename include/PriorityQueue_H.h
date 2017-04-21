@@ -21,8 +21,8 @@ class H_PriorityQueue : public SixHeap<T> {
 template < typename T >
 class RB_PriorityQueue : public RBTree<T> {
  public:
-  RB_PriorityQueue(){}
-  ~RB_PriorityQueue(){}
+  RB_PriorityQueue() {}
+  ~RB_PriorityQueue() {}
   T Getmin() {
     return GetMin();
   }
