@@ -8,9 +8,9 @@ TEST(RBTree, CanInseartInEmptyTree) {
   int v = 2;
   a.Insert(v);
   EXPECT_EQ(a.root->color, 0);
-  EXPECT_EQ(a.root->left, reinterpret_cast<rbnode<int>*>(NIL));
-  EXPECT_EQ(a.root->right, reinterpret_cast<rbnode<int>*>(NIL));
-  EXPECT_EQ(a.root->parent, NULL);
+  EXPECT_TRUE(a.root->left == reinterpret_cast<rbnode<int>*>(NIL));
+  EXPECT_TRUE(a.root->right == reinterpret_cast<rbnode<int>*>(NIL));
+  EXPECT_TRUE(a.root->parent == NULL);
   EXPECT_EQ(a.root->value, v);
 }
 
@@ -23,8 +23,8 @@ TEST(RBTree, CanInseartInNOTEmptyTree) {
   EXPECT_TRUE(a.root->left == reinterpret_cast<rbnode<int>*>(NIL));
   EXPECT_TRUE(a.root->right != reinterpret_cast<rbnode<int>*>(NIL));
 
-  EXPECT_TRUE(a.root->right->color == 1);
-  EXPECT_TRUE(a.root->right->value, 3);
+  EXPECT_EQ(a.root->right->color, 1);
+  EXPECT_EQ(a.root->right->value, 3);
 
   EXPECT_TRUE(a.root->right->left == reinterpret_cast<rbnode<int>*>(NIL));
   EXPECT_TRUE(a.root->right->right == reinterpret_cast<rbnode<int>*>(NIL));
