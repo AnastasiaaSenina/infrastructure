@@ -1,11 +1,9 @@
-#include "RBTRee.h"
+#include "RBTree.h"
 #include "PriorityQueue_H.h"
 #include <vector>
 #include <Alg_Dijkstra.h>
 using std:: vector;
 using std:: pair;
-rbnode<pair<int, int>> NILNODE(std::make_pair(888, 888), NULL, NULL, NULL, 0);
-
 vector< int > Dijkstra_RB(int start, vector < vector < pair <int, int> > > g) {
   int n = g.size();
   bool* m = new bool[n];
@@ -16,7 +14,7 @@ vector< int > Dijkstra_RB(int start, vector < vector < pair <int, int> > > g) {
   RB_PriorityQueue < pair < int, int> > q;
   int len;
   q.Insert(make_pair(d[start], start));
-  while (!q.Isempty()) {
+  while (!q.isempty()) {
     int current_node = q.GetMin().second;
     q.DeleteMin();
     if (m[current_node] == false) {
@@ -26,7 +24,7 @@ vector< int > Dijkstra_RB(int start, vector < vector < pair <int, int> > > g) {
         len = g[current_node][j].first;
         if (d[current_node] + len < d[node]) {
           d[node] = d[current_node] + len;
-          q.Insert(std::make_pair(d[node], node));
+          q.Insert(make_pair(d[node], node));
         }
       }
     }
@@ -54,7 +52,7 @@ vector< int > Dijkstra_H(int start, vector < vector < pair <int, int> > > g) {
         len = g[current_node][j].first;
         if (d[current_node] + len < d[node]) {
           d[node] = d[current_node] + len;
-          q.InsertEl(std::make_pair(d[node], node));
+          q.InsertEl(make_pair(d[node], node));
         }
       }
     }

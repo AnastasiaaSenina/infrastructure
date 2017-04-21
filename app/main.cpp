@@ -1,8 +1,6 @@
-#include <iostream>
 #include "RBTree.h"
 #include "Heap.h"
 #include "Alg_Dijkstra.h"
-#include "alg.h"
 #include <stdio.h>
 #include <vector>
 

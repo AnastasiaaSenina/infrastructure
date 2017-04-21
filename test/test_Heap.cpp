@@ -23,7 +23,7 @@ TEST(SixHeap, CanInseartElInHeap) {
   a.InsertEl(4);
   a.InsertEl(7);
 
-  for (int i = 0; i < res.size(); ++i)
+  for (unsigned int i = 0; i < res.size(); ++i)
   EXPECT_EQ(res[i], a[i]);
 }
 
@@ -49,7 +49,7 @@ TEST(SixHeap, CanDeleteMinEl) {
   a.InsertEl(7);
   a.DeleteMin();
 
-  for (int i = 0; i < res.size(); ++i)
+  for (unsigned int i = 0; i < res.size(); ++i)
     EXPECT_EQ(res[i], a[i]);
 }
 

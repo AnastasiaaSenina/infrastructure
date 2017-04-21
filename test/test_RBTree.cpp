@@ -1,20 +1,20 @@
 #include <gtest/gtest.h>
-#include "RBTRee.h"
+#include "RBTree.h"
 using std:: pair;
 using std:: vector;
 
-TEST(RBTree, CanInseartInEmptyTree) {
+TEST(RBTree, CanInsertInEmptyTree) {
   RBTree <int> a;
   int v = 2;
   a.Insert(v);
   EXPECT_EQ(a.root->color, 0);
   EXPECT_TRUE(a.root->left == reinterpret_cast<rbnode<int>*>(NIL));
   EXPECT_TRUE(a.root->right == reinterpret_cast<rbnode<int>*>(NIL));
-  EXPECT_TRUE(a.root->parent == NULL);
+  EXPECT_TRUE(a.root->parent == nullptr);
   EXPECT_EQ(a.root->value, v);
 }
 
-TEST(RBTree, CanInseartInNOTEmptyTree) {
+TEST(RBTree, CanInsertInNOTEmptyTree) {
   RBTree <int> a;
   a.Insert(2);
   a.Insert(3);
@@ -84,7 +84,7 @@ TEST(RBTree, CanDeleteForAdressInTree) {
   EXPECT_EQ(res, nullptr);
   EXPECT_EQ(a.root->value, 4);
   EXPECT_EQ(a.root->color, 0);
-  EXPECT_TRUE(a.root->parent == NULL);
+  EXPECT_TRUE(a.root->parent == nullptr);
   EXPECT_EQ(a.root->left->value, 2);
   EXPECT_EQ(a.root->left->color, 1);
   EXPECT_TRUE(a.root->left->right == reinterpret_cast<rbnode<int>*>(NIL));

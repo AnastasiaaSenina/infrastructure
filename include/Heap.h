@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <vector>
 using std :: vector;
-
 template < typename T >
 class SixHeap {
  private:
@@ -16,6 +15,9 @@ class SixHeap {
   void InsertEl(T a);
   void DeleteMin();
   T GetMin();
+  bool isempty() {
+    return mas.empty();
+  }
   int Size() {
     return mas.size();
   }
@@ -42,13 +44,13 @@ int SixHeap<T>::MinSoon(int index_parent) {
   int i;
   int index;
 
-  if (6 * index_parent + 1 < mas.size()) {
+  if (6 * index_parent + 1 < static_cast<int>(mas.size())) {
     i = 6 * index_parent + 1;
   } else {
     return -1;
     }
     index = i;
-  while (i + 1 < mas.size() && i <= 6*index_parent + 6) {
+    while (i + 1 < static_cast<int>(mas.size()) && i <= 6 * index_parent + 6) {
     if (mas[index] > mas[i + 1]) {
      index = i+1;
      }
@@ -62,7 +64,7 @@ void SixHeap<T>::ShiftDown() {
   T tmp;
   int parent = 0;
   int index_min_soon = MinSoon(0);
-  while (index_min_soon >= 0 && index_min_soon <= mas.size() - 1
+  while (index_min_soon >= 0 && index_min_soon <= static_cast<int>(mas.size()) - 1
   &&  mas[parent] > mas[index_min_soon]) {
     tmp = mas[index_min_soon];
     mas[index_min_soon] = mas[parent];
@@ -75,8 +77,6 @@ void SixHeap<T>::ShiftDown() {
 template < typename T >
 void SixHeap<T>::DeleteMin() {
     if (Size() != 0) {
-      T tmp;
-      tmp = mas[0];
       mas[0] = mas[mas.size() - 1];
       mas.pop_back();
       ShiftDown();
@@ -86,7 +86,7 @@ void SixHeap<T>::DeleteMin() {
 }
 template < typename T>
 T SixHeap<T>::GetMin() {
-  if (mas.size() != 0) {
+  if (static_cast<int>(mas.size()) != 0) {
     return mas[0];
   } else {
     throw 1;
