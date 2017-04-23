@@ -1,7 +1,5 @@
 #ifndef INCLUDE_ADD_H_
 #define INCLUDE_ADD_H_
-#include <conio.h>
-#include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 
