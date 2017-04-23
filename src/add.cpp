@@ -1,7 +1,6 @@
 #include "add.h"
 
 int Find(int* mas, int pos) {
-
   int i = pos;
   while (i != mas[i]) {
     i = mas[i];
@@ -66,26 +65,25 @@ bool Percolation(int** m, int n) {
      delete[] count;
      return false;
 }
-
-
 }
-double MatVer(int** m, int n) {
+double MatVer(int** m, int n, int k) {
   srand(time(NULL));
   double p = 0;
-  int sum = 0;
-  for (int i = 0; i < 1000; ++i) {
-    p+=sum / (n*n);
+  double sum = 0;
+  for (int i = 0; i < k; ++i) {
+    p+=(sum / (n*n));
     sum = 0;
-
     for (int j = 0; j < n; j++)
     for (int k = 0; k < n; k++)
       m[j][k] = 0;
     while (!Percolation(m, n)) {
       int x = rand() % n;
       int y = rand() % n;
+      if (m[x][y] == 0) {
       m[x][y] = 1;
       sum++;
+      }
     }
   }
-  return p/1000;
+  return p/k;
 }
