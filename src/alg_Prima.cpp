@@ -18,7 +18,7 @@ tuple<int, int, int> Edge(vector<int> s) {
       }
     }
   }
-  tuple<int,int,int>  r = std::make_tuple(s[0], vertex1, vertex2);
+  tuple<int, int, int>  r = std::make_tuple(s[0], vertex1, vertex2);
   return r;
 }
 
