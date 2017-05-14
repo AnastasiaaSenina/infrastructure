@@ -6,7 +6,7 @@ vector<vector<int>> alg_krask(vector<vector<int>> graph) {
     vector<vector<int>> ostov;
     for (unsigned int i = 0; i < graph.size(); i++) {
       vector<int>  str(graph.size() - i);
-      for (int j = 0; j < graph.size() - i; ++j)
+      for (unsigned int j = 0; j < graph.size() - i; ++j)
         str[j] = 0;
       ostov.push_back(str);
     }
