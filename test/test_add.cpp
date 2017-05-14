@@ -8,13 +8,13 @@ TEST(Union_Find, CanCreateSetWithSize) {
   EXPECT_EQ(a.GetSize(), 5);
   for (int i = 0; i < 5; ++i) {
     EXPECT_TRUE(a.GetSet(i) == i);
-    EXPECT_TRUE(a.GetEmp_Set(i) == 1);
+    EXPECT_EQ(a.GetEmp_Set(i), 1);
   }
 }
 
 TEST(Union_Find, CanFindSet) {
   Union_Find a(5);
-  EXPECT_TRUE(a.Find_set(1) == 1);
+  EXPECT_EQ(a.Find_set(1), 1);
 }
 
 TEST(Union_Find, CanUnionSet) {
