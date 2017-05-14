@@ -1,7 +1,7 @@
 #include "alg_Prima.h"
 #include "Heap.h"
 
-tuple<int, int, int> Edge(vector<int> s){
+tuple<int, int, int> Edge(vector<int> s) {
   int vertex1;
   int vertex2;
   int j = 0;
@@ -18,7 +18,7 @@ tuple<int, int, int> Edge(vector<int> s){
       }
     }
   }
-  tuple<int,int,int>  r = std::make_tuple(s[0],vertex1,vertex2);
+  tuple<int,int,int>  r = std::make_tuple(s[0], vertex1, vertex2);
   return r;
 }
 
@@ -27,16 +27,15 @@ vector<vector<int>> alg_Prima(vector<vector<int>> matr) {
     vector< bool > visited(matr.size());
     for (int i = 0; i < visited.size(); ++i) {
       visited[i] = false;
-    } 
+    }
     vector<vector<int>> ostov;
     tuple<int, int, int> edge = Edge(matr[0]);
-    SixHeap<tuple<int,int,int>> h;
+    SixHeap<tuple<int, int, int>> h;
     h.InsertEl(edge);
     visited[0] = true;
     int n = 0;
     while (!h.isempty() && n < matr[0].size() - 2) {
       tuple<int, int, int> min_edge = h.GetMin();
-      //add in ostov
       h.DeleteMin();
       vector<int> new_edge(matr[0].size());
       new_edge[0] = std::get<0>(min_edge);
@@ -50,7 +49,8 @@ vector<vector<int>> alg_Prima(vector<vector<int>> matr) {
       ostov.push_back(new_edge);
       n++;
       for (int i = 0; i < matr.size(); ++i) {
-        if ((matr[i][std::get<1>(min_edge)] == 1 || matr[i][std::get<2>(min_edge)] == 1) && visited[i] == false) {
+        if ((matr[i][std::get<1>(min_edge)] == 1 ||
+        matr[i][std::get<2>(min_edge)] == 1) && visited[i] == false) {
           h.InsertEl(Edge(matr[i]));
           visited[i] = true;
         }

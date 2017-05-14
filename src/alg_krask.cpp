@@ -36,8 +36,7 @@ vector<vector<int>> alg_krask(vector<vector<int>> graph) {
       }
     }
     return ostov;
-  }
-  else {
+  } else {
     throw 1;
   }
 }

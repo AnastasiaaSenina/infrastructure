@@ -3,8 +3,6 @@
 #include "alg_krask.h"
 #include "alg_Prima.h"
 
-
-
 TEST(Union_Find, CanCreateSetWithSize) {
   Union_Find a(5);
   EXPECT_EQ(a.GetSize(), 5);
@@ -16,7 +14,7 @@ TEST(Union_Find, CanCreateSetWithSize) {
 
 TEST(Union_Find, CanFindSet) {
   Union_Find a(5);
-  EXPECT_EQ(a.Find_set(1), 1);
+  EXPECT_TRUE(a.Find_set(1) == 1);
 }
 
 TEST(Union_Find, CanUnionSet) {
@@ -80,8 +78,6 @@ TEST(alg_krask, CorrectFindOstov) {
   EXPECT_EQ(ostov[2], edg7);
   EXPECT_EQ(ostov[3], edg4);
   EXPECT_EQ(ostov[4], edg5);
-
-  //viz_graph_ms(graph, ostov);
 }
 
 TEST(alg_krask, CorrectFindOstov1) {
@@ -152,7 +148,6 @@ TEST(alg_krask, CorrectFindOstov1) {
   EXPECT_EQ(ostov[2], edg8);
   EXPECT_EQ(ostov[3], edg9);
   EXPECT_EQ(ostov[4], edg10);
-
 }
 
 TEST(alg_krask, ThrowsWhenGraphisEmpty) {
@@ -226,8 +221,6 @@ TEST(alg_Prima, CanFindOstov) {
   EXPECT_EQ(ostov[0], edg1);
   EXPECT_EQ(ostov[1], edg2);
   EXPECT_EQ(ostov[2], edg3);
-
-  
 }
 
 TEST(Alg_Prima, CanFindOstov1) {
@@ -310,5 +303,4 @@ TEST(Alg_Prima, CanFindOstov1) {
   EXPECT_EQ(ostov[2], edg2);
   EXPECT_EQ(ostov[3], edg3);
   EXPECT_EQ(ostov[4], edg6);
-
 }

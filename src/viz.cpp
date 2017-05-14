@@ -6,7 +6,7 @@ void  viz_graph_mi(vector<vector<int>> graph, vector<vector<int>> ostov) {
   fprintf(fp, "graph ostov {\n");
   fprintf(fp, "\tnode[shape=circle];\n");
   fprintf(fp, "\tedge[color=red];\n");
-  vector <tuple<int,int,int>> edge_ostov;
+  vector <tuple<int, int, int>> edge_ostov;
   for (int i = 0; i < ostov.size(); ++i) {
     tuple<int, int, int> a = Edge(ostov[i]);
     edge_ostov.push_back(a);
@@ -21,15 +21,15 @@ void  viz_graph_mi(vector<vector<int>> graph, vector<vector<int>> ostov) {
   fprintf(fp, "\tedge[color=blue];\n");
 
   vector <tuple<int, int, int>> edge_ishod;
-  for ( auto it = graph.begin(); it < graph.end(); ++it) {
+  for (auto it = graph.begin(); it < graph.end(); ++it) {
     bool flag = false;
     tuple<int, int, int> a = Edge(*it);
     for (auto it1 = edge_ostov.begin(); it1 < edge_ostov.end(); ++it1) {
-      if ((*it1) == a ) {
+      if ((*it1) == a) {
         flag = true;
       }
     }
-    if ( flag == false) {
+    if (flag == false) {
       edge_ishod.push_back(a);
     }
   }
@@ -37,8 +37,6 @@ void  viz_graph_mi(vector<vector<int>> graph, vector<vector<int>> ostov) {
     fprintf(fp, "\tedge[label=%d];\n", std::get<0>((*it)));
     fprintf(fp, "\t%d -- %d;\n", std::get<1>((*it)), std::get<2>((*it)));
   }
-
-  
   fprintf(fp, "}");
   fclose(fp);
 }
@@ -90,11 +88,8 @@ void  viz_graph_ms(vector<vector<int>> graph, vector<vector<int>> ostov) {
     fprintf(fp, "\tedge[label=%d];\n", std::get<0>((*it)));
     fprintf(fp, "\t%d -- %d;\n", std::get<1>((*it)), std::get<2>((*it)));
   }
-
   fprintf(fp, "}");
   fclose(fp);
-
-
 }
 
 

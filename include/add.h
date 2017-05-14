@@ -12,15 +12,16 @@ using std:: set;
 using std:: get;
 
 
-class Union_Find{
+class Union_Find {
  private:
   int size;
   int* set;
   int* åmployment_set;
+
  public:
-  void Union_set(int number_set1,int number_set2);
+  void Union_set(int number_set1, int number_set2);
   int Find_set(int number_el);
-  Union_Find(int s) {
+  explicit  Union_Find(int s) {
     size = s;
     set = new int[s];
     åmployment_set = new int[s];
@@ -30,7 +31,7 @@ class Union_Find{
     }
   }
   // äëÿ òåñòîâ
-   int GetSize() {
+  int GetSize() {
     return size;
   }
   int GetSet(int i) {

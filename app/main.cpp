@@ -97,9 +97,6 @@ int main() {
   edg5.push_back(0);
 
   graph.push_back(edg5);
-
-
   vector <vector <int> > ostov = alg_krask(graph);
   viz_graph_ms(graph, ostov);
-
- }
+}

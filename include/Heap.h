@@ -5,12 +5,12 @@
 using std::vector;
 template < typename T >
 class SixHeap {
-private:
+ private:
   vector < T> mas;
   void ShiftUP(int index);
   void ShiftDown();
   int MinSoon(int index_parent);
-public:
+ public:
   T operator[](int index);
   void InsertEl(T a);
   void DeleteMin();
@@ -46,8 +46,7 @@ int SixHeap<T>::MinSoon(int index_parent) {
 
   if (2 * index_parent + 1 < static_cast<int>(mas.size())) {
     i = 2 * index_parent + 1;
-  }
-  else {
+  } else {
     return -1;
   }
   index = i;
@@ -81,20 +80,20 @@ void SixHeap<T>::DeleteMin() {
     mas[0] = mas[mas.size() - 1];
     mas.pop_back();
     ShiftDown();
-  }
-  else {
+  } else {
     throw 1;
   }
 }
+
 template < typename T>
 T SixHeap<T>::GetMin() {
   if (static_cast<int>(mas.size()) != 0) {
     return mas[0];
-  }
-  else {
+  } else {
     throw 1;
   }
 }
+
 template < typename T >
 T SixHeap<T>::operator[](int index) {
   return mas[index];
