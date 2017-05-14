@@ -7,7 +7,7 @@ void  viz_graph_mi(vector<vector<int>> graph, vector<vector<int>> ostov) {
   fprintf(fp, "\tnode[shape=circle];\n");
   fprintf(fp, "\tedge[color=red];\n");
   vector <tuple<int, int, int>> edge_ostov;
-  for (int i = 0; i < ostov.size(); ++i) {
+  for (unsigned int i = 0; i < ostov.size(); ++i) {
     tuple<int, int, int> a = Edge(ostov[i]);
     edge_ostov.push_back(a);
   }
