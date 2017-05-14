@@ -40,7 +40,9 @@ vector<vector<int>> alg_Prima(vector<vector<int>> matr) {
       vector<int> new_edge(matr[0].size());
       new_edge[0] = std::get<0>(min_edge);
       for (unsigned int i = 1; i < new_edge.size(); ++i) {
-        if (i == std::get<1>(min_edge) || i == std::get<2>(min_edge)) {
+        unsigned int e = std::get<1>(min_edge);
+        unsigned int c = std::get<2>(min_edge);
+        if (i == e || i == c) {
           new_edge[i] = 1;
         } else {
           new_edge[i] = 0;
