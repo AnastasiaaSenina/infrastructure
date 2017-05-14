@@ -16,7 +16,7 @@ class Union_Find {
  private:
   int size;
   int* set;
-  int* åmployment_set;
+  int* employment_set;
 
  public:
   void Union_set(int number_set1, int number_set2);
@@ -24,10 +24,10 @@ class Union_Find {
   explicit  Union_Find(int s) {
     size = s;
     set = new int[s];
-    åmployment_set = new int[s];
-    for (unsigned int i = 0; i < size; ++i) {
+    employment_set = new int[s];
+    for (int i = 0; i < size; ++i) {
       set[i] = i;
-      åmployment_set[i] = 1;
+      employment_set[i] = 1;
     }
   }
   // äëÿ òåñòîâ
@@ -38,7 +38,7 @@ class Union_Find {
     return set[i];
   }
   int GetEmp_Set(int i) {
-    return åmployment_set[i];
+    return employment_set[i];
   }
 };
 
