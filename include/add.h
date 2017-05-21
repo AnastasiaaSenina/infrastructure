@@ -2,13 +2,14 @@
 #define INCLUDE_ADD_H_
 #include <vector>
 using std:: vector;
+using std::pair;
 class Union_Find {
-private:
+ private:
   int size;
   int* set;
   int* employment_set;
 
-public:
+ public:
   void Union_set(int number_set1, int number_set2);
   int Find_set(int number_el);
   explicit  Union_Find(int s) {
@@ -20,17 +21,7 @@ public:
       employment_set[i] = 1;
     }
   }
-  // äëÿ òåñòîâ
-  int GetSize() {
-    return size;
-  }
-  int GetSet(int i) {
-    return set[i];
-  }
-  int GetEmp_Set(int i) {
-    return employment_set[i];
-  }
 };
 
-int* func(int n, int k, int* el);
+vector<int> func(int n, vector< std::pair<int, int>> p);
 #endif  // INCLUDE_ADD_H_

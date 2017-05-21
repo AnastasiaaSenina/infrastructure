@@ -2,5 +2,9 @@
 #include <iostream>
 
 int main() {
-  std::cout << "2 + 2 = " << add(2, 2) << std::endl;
+  vector<pair<int,int>> a;
+  a.push_back(std::make_pair(0, 1));
+  a.push_back(std::make_pair(1, 2));
+  a.push_back(std::make_pair(0, 2));
+  vector<int> res = func(3, a);
 }
