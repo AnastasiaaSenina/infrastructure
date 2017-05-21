@@ -1,5 +1,6 @@
 ﻿#ifndef INCLUDE_ADD_H_
 #define INCLUDE_ADD_H_
+
 #include <vector>
 using std:: vector;
 using std::pair;
@@ -24,4 +25,5 @@ class Union_Find {
 };
 
 vector<int> func(int n, vector< std::pair<int, int>> p);
+
 #endif  // INCLUDE_ADD_H_
