@@ -13,12 +13,11 @@ TEST(func, test1) {
   a.push_back(make_pair(1, 2));
   a.push_back(make_pair(0, 2));
   vector < int > ret = func(3, a);
- 
   vector < int > r;
   r.push_back(0);
   r.push_back(1);
   r.push_back(2);
- 
+
   EXPECT_EQ(ret, r);
 }
 
@@ -36,7 +35,7 @@ TEST(func, test2) {
   r.push_back(1);
   r.push_back(2);
   r.push_back(1);
-  
+
   EXPECT_EQ(ret2, r);
 }
 
