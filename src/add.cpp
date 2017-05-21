@@ -1,145 +1,139 @@
 #include "add.h"
+#include <iostream>
+#include <queue>
 
-
-int Find(int* mas, int pos) {
-	int i = pos;
-	while (i != mas[i]) {
-		i = mas[i];
-	}
-	return i;
+int Find(vector<int> a, int v) {
+  int tmp = v;
+  while (a[tmp] != tmp)
+    tmp = a[tmp];
+  return tmp;
 }
-
-void Union(int x, int y, int* mas, int * count) {
-	int set_x = Find(mas, x);
-	int set_y = Find(mas, y);
-
-	if (count[set_x] >= count[set_y]) {
-		mas[set_y] = mas[set_x];
-		count[set_x]++;
-	}
-	else {
-		mas[set_x] = mas[set_y];
-		count[set_y]++;
-	}
+void Union(vector<int> *a,vector<int> *b, int el1, int el2) {
+  if ((*b)[Find(*a, el1)] > (*b)[Find(*a, el2)]) {
+    (*a)[Find(*a, el2)] = (*a)[Find(*a, el1)];
+    (*b)[Find(*a, el1)]++;
+  }
+  else {
+    (*a)[Find(*a, el1)] = (*a)[Find(*a, el2)];
+    (*b)[Find(*a, el2)]++;
+  }
 }
-
-bool Percolation(int** m, int n) {
-	int* mas = new int[n*n];
-	int* count = new int[n*n];
-	for (int i = 0; i < n*n; ++i) {
-		count[i] = 1;
-	}
-	for (int i = 0; i < n*n; ++i) {
-		mas[i] = i;
-	}
-	for (int i = 0; i < n - 1; ++i)
-		Union(i, i + 1, mas, count);
-	for (int i = n*n - n; i < n*n - 1; i++)
-		Union(i, i + 1, mas, count);
-
-	for (int i = 0; i < n*n; i++) {
-		if (m[(i - i%n) / n][i%n] == 1) {
-			if (i - 1 >= 0 && i - 1 < n*n) {
-				if (m[(i - 1 - (i - 1) % n) / n][(i - 1) % n] == 1)
-					Union(i - 1, i, mas, count);
-			}
-			if (i + 1 >= 0 && i + 1 < n*n) {
-				if (m[(i + 1 - (i + 1) % n) / n][(i + 1) % n] == 1)
-					Union(i + 1, i, mas, count);
-			}
-			if (i + n >= 0 && i + n < n*n) {
-				if (m[(i + n - (n + i) % n) / n][(n + i) % n] == 1)
-					Union(i + n, i, mas, count);
-			}
-			if (i - n >= 0 && i - n < n*n) {
-				if (m[(i - n - (i - n) % n) / n][(i - n) % n] == 1)
-					Union(i - n, i, mas, count);
-			}
-		}
-	}
-
-	if (Find(mas, 0) == Find(mas, n*n - 1)) {
-		delete[] mas;
-		delete[] count;
-		return true;
-	}
-	else {
-		delete[] mas;
-		delete[] count;
-		return false;
-	}
+vector<vector<int>> IslandUF(vector<vector<int>> m) {
+  int mSize = m.size();
+  int n = mSize*mSize + 2;
+  vector<int> c(n);
+  vector<int> d(n, 1);
+  for (int i = 0; i < n; ++i)
+    c[i] = i;
+  for (int i = 0; i < mSize; ++i)
+  if (m[0][i]) Union(&c, &d, 0, i + 1);
+  for (int i = 0; i < mSize - 1; ++i) {
+    for (int j = 0; j < mSize - 1; ++j) {
+      if (m[i][j] && m[i][j + 1]) Union(&c, &d, i*mSize + j + 1,
+        i*mSize + j + 2);
+      if (m[i][j] && m[i + 1][j]) Union(&c, &d, i*mSize + j + 1,
+        (i + 1)*mSize + j + 1);
+    }
+    if (m[i][mSize - 1] && m[i + 1][mSize - 1]) Union(&c, &d,
+      i*mSize + mSize,
+      (i + 1)*mSize + mSize);
+  }
+  for (int j = 0; j < mSize - 1; ++j)
+  if (m[mSize - 1][j] && m[mSize - 1][j + 1]) Union(&c, &d,
+    (mSize - 1)*mSize + j + 1,
+    (mSize - 1)*mSize + j + 2);
+  for (int j = 0; j < mSize; ++j)
+  if (m[mSize - 1][j]) Union(&c, &d, n - 1, (mSize - 1)*mSize + j + 1);
+  c.push_back(n);
+  c.push_back(n + 1);
+  d.push_back(1);
+  d.push_back(1);
+  for (int i = 0; i < mSize; ++i)
+  if (m[i][0]) Union(&c, &d, n, i*mSize + 1);
+  for (int i = 0; i < mSize; ++i)
+  if (m[i][mSize - 1]) Union(&c, &d, n + 1, i*mSize + mSize);
+  Union(&c, &d, 0, n - 1);
+  Union(&c, &d, 0, n);
+  Union(&c, &d, 0, n + 1);
+  for (int i = 0; i < mSize - 1; ++i)
+  for (int j = 0; j < mSize - 1; ++j)
+  if (Find(c, i*mSize + j + 1) != Find(c, 0)) m[i][j] = 0;
+  return m;
 }
-double MatVer(int** m, int n, int k) {
-	srand(time(NULL));
-	double p = 0;
-	double sum = 0;
-	for (int i = 0; i < k; ++i) {
-		p += (sum / (n*n));
-		sum = 0;
-		for (int j = 0; j < n; j++)
-			for (int k = 0; k < n; k++)
-				m[j][k] = 0;
-		while (!Percolation(m, n)) {
-			int x = rand() % n;
-			int y = rand() % n;
-			if (m[x][y] == 0) {
-				m[x][y] = 1;
-				sum++;
-			}
-		}
-	}
-	return p / k;
+void BFS(vector<vector<int>> m, vector<vector<int>> *b,
+  index y) {
+  index* temp;
+  int mSize = m.size();
+  std::queue<index> q;
+  q.push(y);
+  (*b)[y.str][y.stlb] = 1;
+  while (!q.empty()) {
+    index tmp = q.front();
+    q.pop();
+    if (tmp.stlb - 1 > -1) {
+      if ((m[tmp.str][tmp.stlb - 1] == 1) &&
+        ((*b)[tmp.str][tmp.stlb - 1] == 1000)) {
+        (*b)[tmp.str][tmp.stlb - 1] = 1;
+        temp = new index;
+        temp->str = tmp.str;
+        temp->stlb = tmp.stlb - 1;
+        q.push(*temp);
+      }
+    }
+    if (tmp.str - 1 > -1) {
+      if ((m[tmp.str - 1][tmp.stlb] == 1) &&
+        ((*b)[tmp.str - 1][tmp.stlb] == 1000)) {
+        (*b)[tmp.str - 1][tmp.stlb] = 1;
+        temp = new index;
+        temp->str = tmp.str - 1;
+        temp->stlb = tmp.stlb;
+        q.push(*temp);
+      }
+    }
+    if (tmp.stlb + 1 < mSize) {
+      if ((m[tmp.str][tmp.stlb + 1] == 1) &&
+        ((*b)[tmp.str][tmp.stlb + 1] == 1000)) {
+        (*b)[tmp.str][tmp.stlb + 1] = 1;
+        temp = new index;
+        temp->str = tmp.str;
+        temp->stlb = tmp.stlb + 1;
+        q.push(*temp);
+      }
+    }
+    if (tmp.str + 1 < mSize) {
+      if ((m[tmp.str + 1][tmp.stlb] == 1) &&
+        ((*b)[tmp.str + 1][tmp.stlb] == 1000)) {
+        (*b)[tmp.str + 1][tmp.stlb] = 1;
+        temp = new index;
+        temp->str = tmp.str + 1;
+        temp->stlb = tmp.stlb;
+        q.push(*temp);
+      }
+    }
+  }
 }
-
-int** percolation2(int** m, int n, int k) {
-	int* mas = new int[n*k];
-	int* count = new int[n*k];
-
-	/*for (int i = 0; i < n; ++i) {
-		mas[i]= i;
-		mas[n*k - i - 1] = n*k - i - 1;
-	}
-
-	for (int i = 0; i < k; ++i) {
-		mas[i*n] = i*n;
-		mas[i*n - n - 1] = i*n - n - 1;
-
-	}
-
-	for (int i = 0; i < n*k; ++i) {
-		count[i] = 1;
-	}
-	*/
-
-	for (int i = 0; i < n*n; ++i) {
-		mas[i] = i;
-	}
-	for (int i = 0; i < n*k; i++) {
-		if (m[0][i] == 1) {
-			if (i - 1 >= 0 && i - 1 < n*k) {
-				if (m[(i - 1 - (i - 1) % n) / n][(i - 1) % n] == 1)
-					Union(i - 1, i, mas, count);
-			}
-			if (i + 1 >= 0 && i + 1 < n*k) {
-				if (m[(i + 1 - (i + 1) % n) / n][(i + 1) % n] == 1)
-					Union(i + 1, i, mas, count);
-			}
-			if (i + n >= 0 && i + n < n*k) {
-				if (m[(i + n - (n + i) % n) / n][(n + i) % n] == 1)
-					Union(i + n, i, mas, count);
-			}
-			if (i - n >= 0 && i - n < n*k) {
-				if (m[(i - n - (i - n) % n) / n][(i - n) % n] == 1)
-					Union(i - n, i, mas, count);
-			}
-		}
-	}
-	for (int i = 0; i < n*k; ++i) {
-		int num = Find(mas, i);
-		if (!(num < n || num % n == 0 || (num <= k*n - 1 && num >= k*n - 1 ) || (num + 1) % n == 0)) {
-			m[(i - i%k) / k][i%n] = 0;
-		}
-	}	
-	return m;
-
+vector<vector<int>> IslandWidth(vector<vector<int>>m) {
+  int mSize = m.size();
+  vector<std::vector<int>> b(mSize, vector<int>(mSize, 1000));
+  index y;
+  y.str = 0;
+  for (y.stlb = 0; y.stlb < mSize; ++y.stlb) {
+    if (m[y.str][y.stlb] == 1) BFS(m, &b, y);
+  }
+  y.str = mSize - 1;
+  for (y.stlb = 0; y.stlb < mSize; ++y.stlb) {
+    if (m[y.str][y.stlb] == 1) BFS(m, &b, y);
+  }
+  y.stlb = 0;
+  for (y.str = 0; y.str < mSize; ++y.str) {
+    if (m[y.str][y.stlb] == 1) BFS(m, &b, y);
+  }
+  y.stlb = mSize - 1;
+  for (y.str = 0; y.str < mSize; ++y.str) {
+    if (m[y.str][y.stlb] == 1) BFS(m, &b, y);
+  }
+  for (int i = 1; i < mSize - 1; ++i)
+  for (int j = 1; j < mSize - 1; ++j)
+  if (b[i][j] == 1000) m[i][j] = 0;
+  return m;
 }

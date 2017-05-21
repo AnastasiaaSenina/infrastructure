@@ -1,12 +1,15 @@
 #ifndef INCLUDE_ADD_H_
 #define INCLUDE_ADD_H_
-#include <time.h>
-#include <stdlib.h>
+#include <vector>
+ using std :: vector;
 
-int Find(int* mas, int pos);
-void Union(int x, int y, int* mas, int * count);
-bool Percolation(int** m, int n);
-double MatVer(int** m, int n, int k);
-int** percolation2(int** mas, int m, int n);
-
+struct index {
+  int str; // stroka
+  int stlb; // stolbec
+};
+int Find(std::vector<int> a, int v);
+void Union(vector<int> *a, vector<int> *b, int el1, int el2);
+vector<std::vector<int>> IslandUF(vector<vector<int>> mas);
+vector<std::vector<int>> IslandWidth(vector<vector<int>>
+  mas);
 #endif  // INCLUDE_ADD_H_
