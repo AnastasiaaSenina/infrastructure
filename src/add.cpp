@@ -8,12 +8,11 @@ int Find(vector<int> a, int v) {
     tmp = a[tmp];
   return tmp;
 }
-void Union(vector<int> *a,vector<int> *b, int el1, int el2) {
+void Union(vector<int> *a, vector<int> *b, int el1, int el2) {
   if ((*b)[Find(*a, el1)] > (*b)[Find(*a, el2)]) {
     (*a)[Find(*a, el2)] = (*a)[Find(*a, el1)];
     (*b)[Find(*a, el1)]++;
-  }
-  else {
+  } else {
     (*a)[Find(*a, el1)] = (*a)[Find(*a, el2)];
     (*b)[Find(*a, el2)]++;
   }
@@ -112,7 +111,7 @@ void BFS(vector<vector<int>> m, vector<vector<int>> *b,
     }
   }
 }
-vector<vector<int>> IslandWidth(vector<vector<int>>m) {
+vector<vector<int>> IslandWidth(vector<vector<int>> m) {
   int mSize = m.size();
   vector<std::vector<int>> b(mSize, vector<int>(mSize, 1000));
   index y;
