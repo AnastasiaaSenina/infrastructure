@@ -31,7 +31,7 @@ vector<int> func(int n, vector< std::pair<int, int>> v) {
       int a = T.Find_set(i);
       int b = T.Find_set(j);
       bool flag = true;
-      for (int k = 0; k < v.size(); k++) {
+      for (unsigned int k = 0; k < v.size(); k++) {
         if (((T.Find_set(v[k].first) == a) &&
           (T.Find_set(v[k].second) == b))
           || ((T.Find_set(v[k].first) == b) &&
