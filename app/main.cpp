@@ -43,7 +43,7 @@ int main() {
   vector<vector<int>> ostov;
   switch (c) {
   case 1:
-   ostov = alg_krask(graph);
+    ostov = alg_krask(graph);
     viz_graph_ms(graph, ostov);
     printf("Graph was saved in graph2.gv on your desktop.\n");
     break;
