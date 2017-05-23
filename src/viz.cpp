@@ -91,6 +91,3 @@ void  viz_graph_ms(vector<vector<int>> graph, vector<vector<int>> ostov) {
   fprintf(fp, "}");
   fclose(fp);
 }
-
-
-

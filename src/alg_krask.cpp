@@ -1,6 +1,5 @@
 #include "add.h"
 
-
 vector<vector<int>> alg_krask(vector<vector<int>> graph) {
   if (graph.size() != 0) {
     vector<vector<int>> ostov;

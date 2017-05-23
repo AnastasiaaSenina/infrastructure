@@ -4,99 +4,55 @@
 #include "viz.h"
 
 int main() {
- /* vector<vector<int>> graph;
-  vector< int > edg1;
-  edg1.push_back(1);
-  edg1.push_back(0);
-  edg1.push_back(1);
-  edg1.push_back(0);
-  edg1.push_back(1);
+  int c;
+  printf("1 - Kruskal\n2 - Prim\n");
+  scanf("%d", &c);
+  if (c == 1) {
+    printf(" Vvedite path to file with adjacency matrix\n");
+  } else {
+    printf(" Vvedite path to file with incidence matrix\n");
+  }
+  printf("path to file: ");
+  char path[150];
+  scanf("%s", path);
+  FILE* fp = fopen(path, "r");
 
-  graph.push_back(edg1);
+  if (fp == 0) {
+    printf("Error open file\n");
+    return 0;
+  }
 
-  vector< int > edg2;
-  edg2.push_back(1);
-  edg2.push_back(0);
-  edg2.push_back(0);
-  edg2.push_back(1);
-  edg2.push_back(1);
+  vector< vector < int > > graph;
 
-  graph.push_back(edg2);
+  int ch = 0;
+  vector<int>* v = new vector<int>;
 
-  vector< int > edg3;
-  edg3.push_back(2);
-  edg3.push_back(1);
-  edg3.push_back(0);
-  edg3.push_back(1);
-  edg3.push_back(0);
+  while ((ch = fgetc(fp)) != EOF) {
+    if (ch != ' ') {
+      if (ch == '\n') {
+        graph.push_back(*v);
+        v = new vector<int>;
+      } else {
+        v->push_back(ch - 48);
+      }
+    }
+  }
+  graph.push_back(*v);
+  fclose(fp);
 
-  graph.push_back(edg3);
+  vector<vector<int>> ostov;
+  switch (c) {
+  case 1:
+   ostov = alg_krask(graph);
+    viz_graph_ms(graph, ostov);
+    printf("Graph was saved in graph2.gv on your desktop.\n");
+    break;
+  case 2:
+    ostov = alg_Prima(graph);
+    viz_graph_mi(graph, ostov);
+    printf("Graph was saved in graph1.gv on your desktop.\n");
+  }
 
-  vector< int > edg4;
-  edg4.push_back(4);
-  edg4.push_back(0);
-  edg4.push_back(1);
-  edg4.push_back(1);
-  edg4.push_back(0);
-
-  graph.push_back(edg4);
-
-  vector< int > edg5;
-  edg5.push_back(5);
-  edg5.push_back(1);
-  edg5.push_back(0);
-  edg5.push_back(0);
-  edg5.push_back(1);
-
-  graph.push_back(edg5);
-
-  vector< int > edg6;
-  edg6.push_back(3);
-  edg6.push_back(1);
-  edg6.push_back(1);
-  edg6.push_back(0);
-  edg6.push_back(0);
-
-  graph.push_back(edg6);
-  vector <vector <int> > ostov = alg_Prima(graph);
-  viz_graph_mi(graph, ostov);
-    */
-
-  vector<vector<int>> graph;
-  vector< int > edg1;
-  edg1.push_back(0);
-  edg1.push_back(3);
-  edg1.push_back(2);
-  edg1.push_back(1);
-  edg1.push_back(0);
-
-  graph.push_back(edg1);
-
-  vector< int > edg2;
-  edg2.push_back(0);
-  edg2.push_back(8);
-  edg2.push_back(0);
-  edg2.push_back(0);
-
-  graph.push_back(edg2);
-
-  vector< int > edg3;
-  edg3.push_back(0);
-  edg3.push_back(5);
-  edg3.push_back(4);
-
-  graph.push_back(edg3);
-
-  vector< int > edg4;
-  edg4.push_back(0);
-  edg4.push_back(0);
-
-  graph.push_back(edg4);
-
-  vector< int > edg5;
-  edg5.push_back(0);
-
-  graph.push_back(edg5);
-  vector <vector <int> > ostov = alg_krask(graph);
-  viz_graph_ms(graph, ostov);
+  return 0;
 }
+
